@@ -27,6 +27,7 @@ type ShoppingCartContext = {
 }
 
 import { createContext, ReactNode, useContext, useState } from "react";
+import { ShoppingCart } from "../components/ShoppingCart"
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext)
 
@@ -38,7 +39,7 @@ export function useShoppingCart() {
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     {/* store cart information in local hook useState of type CartItem array */ }
     const [cartItems, setCartItems] = useState<CartItem[]>([])
-    const [useOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
     const openCart = () => setIsOpen(true)
     const closeCart = () => setIsOpen(false)
@@ -98,6 +99,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     }
 
     // counting up item quantities and return cart quantity variable, default starts at 0
+    // for each item, take quantity and item itself and add up total of item plus quantity
     const cartQuantity = cartItems.reduce((quantity, item) => item.quantity + quantity, 0)
 
     return (
@@ -113,6 +115,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
                 closeCart,
             }}>
             {children}
+            <ShoppingCart isOpen={isOpen} />
         </ShoppingCartContext.Provider>
     )
 }
