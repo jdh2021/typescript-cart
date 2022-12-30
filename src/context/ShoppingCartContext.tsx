@@ -40,7 +40,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     {/* store cart information in local hook useState of type CartItem array */ }
     const [cartItems, setCartItems] = useState<CartItem[]>([])
     const [isOpen, setIsOpen] = useState(false)
-
+    {/* used in Navbar to open and close cart */}
     const openCart = () => setIsOpen(true)
     const closeCart = () => setIsOpen(false)
 
