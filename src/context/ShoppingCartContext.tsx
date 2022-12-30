@@ -28,6 +28,7 @@ type ShoppingCartContext = {
 
 import { createContext, ReactNode, useContext, useState } from "react";
 import { ShoppingCart } from "../components/ShoppingCart"
+import { useLocalStorage } from "../hooks/useLocalStorage"
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext)
 
@@ -38,7 +39,7 @@ export function useShoppingCart() {
 // provider need objects, wrapper around context that has children object
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     {/* store cart information in local hook useState of type CartItem array */ }
-    const [cartItems, setCartItems] = useState<CartItem[]>([])
+    const [cartItems, setCartItems] = useLocalStorage<CartItem[]>("shopping-cart", [])
     const [isOpen, setIsOpen] = useState(false)
     {/* used in Navbar to open and close cart */}
     const openCart = () => setIsOpen(true)
